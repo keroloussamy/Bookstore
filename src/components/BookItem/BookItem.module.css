@@ -1,0 +1,14 @@
+.bookItem {
+  border: 1px solid black;
+  padding: 20px;
+  margin: 20px;
+}
+
+.itemActions {
+  list-style: none;
+}
+
+.itemActions li {
+  display: inline;
+  margin-right: 10px;
+}
