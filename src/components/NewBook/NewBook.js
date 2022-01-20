@@ -1,13 +1,13 @@
 // import useDispatch hook
 import { useDispatch } from 'react-redux';
-import nextId from 'react-id-generator';
+import { v4 as uuid } from 'uuid';
 import React, { useState } from 'react';
 // import your Action Creators
 import { addBookAsync } from '../../redux/books/books';
 
 function NewBook() {
   const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState('Action 1');
 
   const dispatch = useDispatch();
 
@@ -22,7 +22,7 @@ function NewBook() {
   const submitBookToStore = (e) => {
     e.preventDefault();
     const newBook = {
-      item_id: nextId(),
+      item_id: uuid(),
       title,
       category,
     };
@@ -41,10 +41,10 @@ function NewBook() {
         placeholder="Title"
       />
       <select value={category} onChange={CategoryHandler}>
-        <option value="a">Action 1</option>
-        <option value="a">Action 2</option>
-        <option value="a">Action 3</option>
-        <option value="a">Action 4</option>
+        <option value="Action 1">Action 1</option>
+        <option value="Action 2">Action 2</option>
+        <option value="Action 3">Action 3</option>
+        <option value="Action 4">Action 4</option>
       </select>
       <button type="submit" onClick={submitBookToStore}>ADD BOOK</button>
     </form>
