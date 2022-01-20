@@ -3,16 +3,16 @@ import { useDispatch } from 'react-redux';
 import nextId from 'react-id-generator';
 import React, { useState } from 'react';
 // import your Action Creators
-import { addBook } from '../../redux/books/books';
+import { addBookAsync } from '../../redux/books/books';
 
 function NewBook() {
   const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
+  const [category, setCategory] = useState('');
 
   const dispatch = useDispatch();
 
-  const AuthorHandler = (e) => {
-    setAuthor(e.target.value);
+  const CategoryHandler = (e) => {
+    setCategory(e.target.value);
   };
 
   const TitleHandler = (e) => {
@@ -22,13 +22,13 @@ function NewBook() {
   const submitBookToStore = (e) => {
     e.preventDefault();
     const newBook = {
-      id: nextId(),
+      item_id: nextId(),
       title,
-      author,
+      category,
     };
 
     // dispatch an action and pass it the newBook object (your action's payload)
-    dispatch(addBook(newBook));
+    dispatch(addBookAsync(newBook));
   };
 
   return (
@@ -36,18 +36,11 @@ function NewBook() {
       <h2>ADD NEW BOOK</h2>
       <input
         type="text"
-        value={author}
-        onChange={AuthorHandler}
-        placeholder="Author"
-      />
-
-      <input
-        type="text"
         value={title}
         onChange={TitleHandler}
         placeholder="Title"
       />
-      <select>
+      <select value={category} onChange={CategoryHandler}>
         <option value="a">Action 1</option>
         <option value="a">Action 2</option>
         <option value="a">Action 3</option>
