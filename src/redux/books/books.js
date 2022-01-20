@@ -1,4 +1,4 @@
-import { getBooksAPI, addBookAPI } from '../../API/book';
+import { getBooksAPI, addBookAPI, removeBookAPI } from '../../API/book';
 
 const ADD_BOOK = 'bookStore/books/ADD_BOOK';
 const REMOVE_BOOK = 'bookStore/books/REMOVE_BOOK';
@@ -21,13 +21,22 @@ export const getBook = (payload) => ({
 });
 
 export const getBooksAsync = () => async (dispatch) => {
-  const data = await getBooksAPI();
-  dispatch(getBook(data));
+  const books = await getBooksAPI();
+  const validbooks = [];
+  Object.keys(books).forEach((id) => {
+    validbooks.push({ item_id: id, title: books[id][0].title, category: books[id][0].category });
+  });
+  dispatch(getBook(validbooks));
 };
 
 export const addBookAsync = (book) => async (dispatch) => {
-  const data = await addBookAPI(book);
-  dispatch(addBook(data));
+  await addBookAPI(book);
+  dispatch(addBook(book));
+};
+
+export const removeBookAsync = (id) => async (dispatch) => {
+  await removeBookAPI(id);
+  dispatch(removeBook(id));
 };
 
 const reducer = (state = initialState, action) => {
