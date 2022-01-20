@@ -1,4 +1,4 @@
-import getBooks from '../../API/book';
+import { getBooksAPI, addBookAPI } from '../../API/book';
 
 const ADD_BOOK = 'bookStore/books/ADD_BOOK';
 const REMOVE_BOOK = 'bookStore/books/REMOVE_BOOK';
@@ -21,8 +21,13 @@ export const getBook = (payload) => ({
 });
 
 export const getBooksAsync = () => async (dispatch) => {
-  const data = await getBooks();
+  const data = await getBooksAPI();
   dispatch(getBook(data));
+};
+
+export const addBookAsync = (book) => async (dispatch) => {
+  const data = await addBookAPI(book);
+  dispatch(addBook(data));
 };
 
 const reducer = (state = initialState, action) => {
@@ -30,7 +35,7 @@ const reducer = (state = initialState, action) => {
     case ADD_BOOK:
       return [...state, action.payload];
     case REMOVE_BOOK:
-      return state.filter((book) => book.id !== action.id);
+      return state.filter((book) => book.item_id !== action.id);
     case GET_BOOKS:
       return action.payload;
     default:
