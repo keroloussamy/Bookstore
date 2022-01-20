@@ -7,11 +7,15 @@ export const getBooksAPI = async () => {
 };
 
 export const addBookAPI = async (book) => {
-  const response = await fetch(`${baseURL}/apps/o3JOPgIWvfQ0PNJonLQr/books`, {
+  await fetch(`${baseURL}/apps/o3JOPgIWvfQ0PNJonLQr/books`, {
     method: 'POST',
     body: JSON.stringify(book),
     headers: { 'Content-type': 'application/json; charset=UTF-8' },
-  });
-  const data = await response.text();
-  return data;
+  }).then((responce) => responce.text());
+};
+
+export const removeBookAPI = async (id) => {
+  await fetch(`${baseURL}/apps/o3JOPgIWvfQ0PNJonLQr/books/${id}`, {
+    method: 'DELETE',
+  }).then((responce) => responce.text());
 };
